@@ -18,6 +18,7 @@ public class teamController {
     @Autowired
     teamService teamService;
 
+
     @GetMapping("/teams")
     public ResponseEntity<List<team>> getAllTeams() {
         return new ResponseEntity<>(teamService.getAllTeams(), HttpStatus.OK);
@@ -58,6 +59,13 @@ public class teamController {
         } else {
             return new ResponseEntity<>(teamFound, HttpStatus.OK);
         }
+    }
+
+
+    @GetMapping("/teamName/{id}")
+    public String teamName(@PathVariable Integer  id){
+        team teamFound=teamService.getTeamById(id);
+        return teamFound.getName();
     }
 
 
