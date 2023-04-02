@@ -5,6 +5,7 @@ import com.taller.grupo1.model.driver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +57,21 @@ public class driverService {
             return null;
         } else {
             return driverRepository.getReferenceById(id);
+        }
+    }
+
+    public List<driver> getDriverPerTeam(Integer id){
+        List<driver> drivers=driverRepository.findAll();
+        List<driver> driverPerTeam=new ArrayList<>();
+        for(driver dr: drivers){
+            if(dr.getId_team()==id){
+                driverPerTeam.add(dr);
+            }
+        }
+        if (driverPerTeam.isEmpty()){
+            return  null;
+        }else{
+            return driverPerTeam;
         }
     }
 

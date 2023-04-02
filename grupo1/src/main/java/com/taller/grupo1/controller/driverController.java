@@ -1,7 +1,7 @@
 package com.taller.grupo1.controller;
 
 
-import com.taller.grupo1.Service.driverService;
+
 import com.taller.grupo1.model.driver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Driver;
 import java.util.List;
 
 @RestController
@@ -66,6 +67,16 @@ public class driverController {
 
     }
 
+    @GetMapping("/team/drivers/{id}")
+    public ResponseEntity<List<driver>> getAllDriversTeam(@PathVariable int id) {
+        List<driver> driverTeam =driverService.getDriverPerTeam(id);
+        if (driverTeam.isEmpty()) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>(driverTeam, HttpStatus.OK);
+        }
+
+    }
     @GetMapping("/team/{id}")
     public String nameTeam(@PathVariable int id){
         try{
